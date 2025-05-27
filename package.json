@@ -1,0 +1,11 @@
+{
+  "name": "echonorth-functions",
+  "version": "1.0.0",
+  "description": "Backend functions for EchoNorth AI tools",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {},
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
