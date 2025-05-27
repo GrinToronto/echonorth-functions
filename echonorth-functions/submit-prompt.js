@@ -3,6 +3,17 @@
 const fetch = require('node-fetch');
 
 exports.handler = async (event, context) => {
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': 'https://echo-north.com',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      },
+      body: 'OK',
+    };
+  }
   try {
     const body = JSON.parse(event.body || '{}');
     const prompt = body.prompt || "Generate a creative idea.";
@@ -30,6 +41,11 @@ exports.handler = async (event, context) => {
 
     return {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': 'https://echo-north.com',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      },
       body: JSON.stringify({
         output: data.choices?.[0]?.message?.content || "No response generated.",
       }),
@@ -37,6 +53,11 @@ exports.handler = async (event, context) => {
   } catch (error) {
     return {
       statusCode: 500,
+      headers: {
+        'Access-Control-Allow-Origin': 'https://echo-north.com',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      },
       body: JSON.stringify({ error: error.message }),
     };
   }
