@@ -7,15 +7,17 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 200,
       headers: {
-        'Access-Control-Allow-Origin': event.headers.origin || 'https://echo-north.com',
+        'Access-Control-Allow-Origin': 'https://echo-north.com',
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Credentials': 'true',
       },
       body: 'OK',
     };
   }
   try {
     const body = JSON.parse(event.body || '{}');
+    console.log("Request origin:", event.headers.origin);
     const prompt = body.prompt || "Generate a creative idea.";
 
     // Replace with your actual OpenAI API key or use a secure method in production
@@ -42,11 +44,13 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 200,
       headers: {
-        'Access-Control-Allow-Origin': event.headers.origin || 'https://echo-north.com',
+        'Access-Control-Allow-Origin': 'https://echo-north.com',
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Credentials': 'true',
       },
       body: JSON.stringify({
+        originDebug: event.headers.origin,
         output: data.choices?.[0]?.message?.content || "No response generated.",
       }),
     };
@@ -54,11 +58,15 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 500,
       headers: {
-        'Access-Control-Allow-Origin': event.headers.origin || 'https://echo-north.com',
+        'Access-Control-Allow-Origin': 'https://echo-north.com',
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Credentials': 'true',
       },
-      body: JSON.stringify({ error: error.message }),
+      body: JSON.stringify({
+        error: error.message,
+        originDebug: event.headers.origin,
+      }),
     };
   }
 };
