@@ -26,6 +26,7 @@ Aesthetic Style: ${aesthetic}`;
 
     // Replace with your actual OpenAI API key or use a secure method in production
     const apiKey = process.env.OPENAI_API_KEY;
+    console.log("Using API key starts with:", apiKey?.slice(0, 5));
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
