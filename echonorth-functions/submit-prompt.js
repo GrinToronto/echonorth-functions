@@ -40,6 +40,7 @@ exports.handler = async (event, context) => {
     });
 
     const data = await response.json();
+    console.log("OpenAI response data:", data);
 
     return {
       statusCode: 200,
