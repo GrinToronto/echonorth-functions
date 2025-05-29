@@ -18,7 +18,11 @@ exports.handler = async (event, context) => {
   try {
     const body = JSON.parse(event.body || '{}');
     console.log("Request origin:", event.headers.origin);
-    const prompt = body.prompt || "Generate a creative idea.";
+    const { description, palette, aesthetic } = body;
+    const prompt = `Create 5 unique AI prompt suggestions for a mood board.
+Project Description: ${description}
+Design Palette: ${palette}
+Aesthetic Style: ${aesthetic}`;
 
     // Replace with your actual OpenAI API key or use a secure method in production
     const apiKey = process.env.OPENAI_API_KEY;
